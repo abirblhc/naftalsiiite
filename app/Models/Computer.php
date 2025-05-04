@@ -33,7 +33,8 @@ class Computer extends Model
     // Accessor to get total RAM
     public function getTotalRamAttribute()
     {
-        return $this->rams->sum('capacity');}
+        return $this->ram ? $this->ram->size : 0; 
+        }
 
 
 }

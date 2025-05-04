@@ -11,9 +11,9 @@ class Site extends Model
 
     protected $fillable = [
         'name',
-        
+
     ];
-    
+
     public function locations()
     {
         return $this->hasMany(Location::class, 'site_id');
@@ -25,6 +25,18 @@ class Site extends Model
     public function branches()
 {
     return $this->hasMany(Branche::class);
+}
+
+public function reclamations()
+{
+    return $this->hasManyThrough(
+        Reclamation::class,
+        User::class,
+        'site_id', // Foreign key on users table
+        'user_id', // Foreign key on reclamations table
+        'id',      // Local key on sites table
+        'id'       // Local key on users table
+    );
 }
 
 }

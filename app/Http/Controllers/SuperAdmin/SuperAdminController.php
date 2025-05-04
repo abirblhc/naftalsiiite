@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\SuperAdmin;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -10,7 +11,6 @@ use App\Models\Material;
 use App\Models\Message;
 use App\Models\Branche;
 use App\Models\Reclamation;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 
@@ -318,9 +318,10 @@ public function showReclamations()
     $reclamations = Reclamation::with('user')->latest()->paginate(10);
     return view('superadmin.reclamations.reclamations', compact('reclamations'));
 }
+/**
+ * Mark a message as seen.
+ */
 
-
- 
 /**
  * Display the specified reclamation.
  */
@@ -392,7 +393,8 @@ public function storeMessage(Request $request, $reclamationId)
 
 public function getUnreadCount()
 {
-    $unreadCount = auth()->user()->unreadMessages()->count();
+    $user = auth()->user();
+    $unreadCount = $user ? $user->unreadMessages()->count() : 0;
     return response()->json(['count' => $unreadCount]);
 }
 

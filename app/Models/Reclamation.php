@@ -20,7 +20,7 @@ class Reclamation extends Model
         'handled_at',
         'completed_at'
     ];
-    
+
     protected $dates = [
         'handled_at',
         'completed_at',

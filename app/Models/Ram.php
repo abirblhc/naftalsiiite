@@ -20,4 +20,9 @@ class Ram extends Model
         return $this->belongsTo(Computer::class, 'computer_id');
     }
 
+    public function getTotalRamAttribute()
+{
+    dd($this->ram_id); // Check the value
+    return $this->ram_id; // or your logic here
+}
 }
